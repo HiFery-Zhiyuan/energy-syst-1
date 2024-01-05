@@ -4,10 +4,10 @@
 ## 一、 许可说明
 
 项目脚本基于：
-1. Python @ PSFL 许可 <br>
+1. Python 环境 @ PSFL 许可 <br>
 1. Pyomo 平台 @ BSD 许可<br>
 2. Pypower 库 @ BSD 许可 <br>
-3. Ipopt @ EPL 许可<br>
+3. Ipopt 库 @ EPL 许可<br>
 <br>
 <br>
 
@@ -20,7 +20,7 @@
 
 ## 三、使用说明
 
-文件夹含多个测试算例，支持脚本直接运行：
+项目含多个测试算例，脚本可直接运行.
 1. IEEE 9 节点系统<br>
 2. IEEE 118 节点系统<br>
 3. IEEE 300 节点系统<br>
