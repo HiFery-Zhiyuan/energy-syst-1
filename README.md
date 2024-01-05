@@ -4,7 +4,7 @@
 ## 一、 许可说明
 
 项目脚本基于：
-1. python @ PSFL 许可 <br>
+1. Python @ PSFL 许可 <br>
 1. Pyomo 平台 @ BSD 许可<br>
 2. Pypower 库 @ BSD 许可 <br>
 3. Ipopt @ EPL 许可<br>
