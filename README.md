@@ -29,9 +29,9 @@
 
 ## 四、作者 & 维护
   
-南网能源院电碳团队：Hifery   :neckbeard:  <br>
-联系方式：howardyzy@outlook.com <br>
-README最近更新：2024-01-05
+Author: HiFery    :bowtie:  <br>
+Email：howardyzy@outlook.com <br>
+Last update：2024-01-05
 <br>
 <br>
 
