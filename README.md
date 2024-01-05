@@ -14,7 +14,7 @@
 
 ## 二、功能介绍
 
-通过解析 [Pypower](https://github.com/rwl/PYPOWER/tree/master)中集成的 IEEE cases，导出系统参数，基于[Pyomo](https://www.pyomo.org/documentation)框架实现 IEEE 测试算例的经济最优和网损最优. 电力系统潮流计算方式为[AC-OPF](https://www.youtube.com/watch?v=5MwNL2SuEaI&t=1238s&ab_channel=GurobiOptimization)，最优化求解选用内点法求解器 [IPOPT](https://pypi.org/project/ipopt/).<br>
+通过解析 [Pypower](https://github.com/rwl/PYPOWER/tree/master)中集成的 IEEE cases，得到系统参数，基于 [Pyomo](https://www.pyomo.org/documentation) 框架实现 IEEE 测试系统的经济最优（网损最优）. 电力系统潮流计算方式为[AC-OPF](https://www.youtube.com/watch?v=5MwNL2SuEaI&t=1238s&ab_channel=GurobiOptimization)，最优化问题求解选用内点法求解器 [IPOPT](https://pypi.org/project/ipopt/).<br>
 <br>
 <br>
 
