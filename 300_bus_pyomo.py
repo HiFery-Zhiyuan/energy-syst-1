@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This project is to test Pyomo-based optimaztion platform using IEEE testing systems
-Designed by Zhiyuan @ 10th, April, 2023
+Designed by Zhiyuan @ 10th, Apr., 2023
 updated by Zhiyuan @ 5th, Jan., 2024
 
 # The voltage bounds needs to be set more slack from base 0.95-1.05 ---> [0.94,1.1] to achieve the optimal solution
