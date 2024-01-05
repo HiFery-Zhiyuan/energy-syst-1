@@ -14,8 +14,7 @@
 
 ## 二、功能介绍
 
-通过解析 [Pypower](https://github.com/rwl/PYPOWER/tree/master)中集成的 IEEE cases，导出系统参数，实现 IEEE 测试算例的最优潮流求解、网损优化.<br>
-求解模式为AC-OPF，求解器为 [IPOPT](https://pypi.org/project/ipopt/).<br>
+通过解析 [Pypower](https://github.com/rwl/PYPOWER/tree/master)中集成的 IEEE cases，导出系统参数，实现 IEEE 测试算例的经济最优和网损最优. 电力系统潮流计算方式为AC-OPF，选用内点法求解器 [IPOPT](https://pypi.org/project/ipopt/).<br>
 <br>
 <br>
 
@@ -32,7 +31,7 @@
   
 南网能源院电碳团队：Hifery   :neckbeard:  <br>
 联系方式：howardyzy@outlook.com <br>
-更新时间：2024-01-05
+README最近更新：2024-01-05
 <br>
 <br>
 
