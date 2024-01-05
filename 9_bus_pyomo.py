@@ -1,38 +1,33 @@
 # -*- coding: utf-8 -*-
 """
-This project is to test Pyomo-based optimaztion platform using IEEE 9-bus system
-Designed by Zhiyuan @ 10th, April, 2023
 
-updated by Zhiyuan @ 4th, Jan., 2024
+This script is to test Pyomo-based optimaztion platform using IEEE 9-bus system
+Firstly developed and designed by Hifery @ 10th, April, 2023
+Recently picked up and updated by Hifery  @ 4th, Jan., 2024
 
-
-Using BMF formulation
 
 Important notes:
-
     # Gij = model.Y[i, j].real
     # Bij = model.Y[i, j].imag
 
     Branch_[i,j] = Bij*(delta[i]-delta[j]) = model.Y[i, j].imag*(delta[i]-delta[j])
-
-
+    
 """
 
 import multiprocessing
-
 from pyomo.environ import *
 from pyomo.opt import SolverFactory
 import math
 import cmath
 import numpy as np
-from pypower.api import case9, case118, ppoption, runpf, loadcase
+from pypower.api import case9, ppoption, runpf, loadcase
 from numpy import r_, c_, ix_, zeros, pi, ones, exp, argmax
 from pypower.makeYbus import makeYbus
 from pypower.ext2int import ext2int
 from pypower.idx_brch import PF, PT, QF, QT
 from pypower.makeBdc import makeBdc
 from pyomo.contrib.pynumero.interfaces.pyomo_nlp import PyomoNLP
-path = 'C:\\Users\\Zhiyuan\\Desktop\\Zhiyuan_Testing\\IPOPT\\Ipopt-3.10.1-win64-intel11.1\\Ipopt-3.10.1-win64-intel11.1\\bin\\ipopt.exe'
+path = 'C:\\Users\\Zhiyuan\\Desktop\\Zhiyuan_Testing\\IPOPT\\Ipopt-3.10.1-win64-intel11.1\\Ipopt-3.10.1-win64-intel11.1\\bin\\ipopt.exe' # needs customized-modification
 
 from pyomo.util.infeasible import log_infeasible_constraints
 import logging
@@ -114,6 +109,7 @@ for i in range(len(bus_gen_mtrx)):
         cost_value = bus_gen_mtrx[i][j]
         cost_dic[key] = cost_value
 
+### --------------------- Pyomo model ------------------------------
 # Define the model
 model = ConcreteModel()
 
@@ -162,7 +158,9 @@ for i in range(row_bus):
         model.QG[i].fix(0)
 
 
-# set stale and fixed
+# set stale and fixed 
+# ONLY FOR TESTING PURPOSE
+
 # model.V[:].stale = True
 # model.delta[:].stale = True
 #
@@ -194,16 +192,17 @@ for i in model.buses:
 
 
 
-# 网损最优
+# 网损最优 minimum loss
 # model.obj = Objective(expr = (sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses))**2, sense=minimize)
-# 潮流经济最优
+
+# 潮流经济最优 minimum cost
 model.obj = Objective(expr = sum((model.PG[i]*baseMVA)**2*model.C[i,4]+ (model.PG[i]*baseMVA)*model.C[i,5]+model.C[i,6]+model.C[i,1] for i in model.buses), sense=minimize)
 
 
 # power supply-demand
 model.power_supply_demand_balance = ConstraintList()
 
-model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.03) # 存在网损 0.05 的网损
+model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.03) # 存在网损 
 # model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) >= 0)
 # model.power_supply_demand_balance.add(expr = sum(model.QG[i] for i in model.buses) - sum(model.QD[i] for i in model.buses) == 0)
 
@@ -219,9 +218,7 @@ for i in model.buses:
 
 
 solver = SolverFactory('ipopt', executable=path)
-
 results = solver.solve(model, tee = True)
-
 
 
 print(model.obj())
@@ -237,6 +234,3 @@ print('Voltage', V)
 print('Delta', delta)
 print('loss', sum(PG) - PD )
 
-
-# check the power flow of each branch
-# quick test for line 3-4 and 4-3
