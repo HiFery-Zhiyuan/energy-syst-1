@@ -35,8 +35,8 @@ README最近更新：2024-01-05
 <br>
 <br>
 
-欢迎交流，讨论 :smiley: 邮箱常年在线 :punch: <br> 
-欢迎任何形式的转载 :heartpulse: 和复用 :clap:  <br>
+欢迎交流，讨论 :smiley: 【邮箱】 常年【在线】 :punch: <br> 
+欢迎任何形式的【转载】 :heartpulse: 【复用】 :clap:  <br>
  **但需『提前告知』** 
 
 
