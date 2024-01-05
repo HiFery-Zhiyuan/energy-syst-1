@@ -12,6 +12,8 @@ Important notes:
 
     Branch_[i,j] = Bij*(delta[i]-delta[j]) = model.Y[i, j].imag*(delta[i]-delta[j])
     
+Inputs: none
+    
 """
 
 import multiprocessing
