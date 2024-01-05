@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-This project is to test Pyomo-based optimaztion platform using IEEE 9-bus system
+This project is to test Pyomo-based optimaztion platform using IEEE testing systems
 Designed by Zhiyuan @ 10th, April, 2023
-
 updated by Zhiyuan @ 5th, Jan., 2024
 
-
-Using BMF formulation
+# The voltage bounds needs to be set more slack from base 0.95-1.05 ---> [0.94,1.1] to achieve the optimal solution
 
 """
 
@@ -119,7 +117,7 @@ model.C = Param(model.buses*model.cost_dims, initialize = cost_dic, default = 0.
 
 model.PG = Var(model.buses, domain = Reals)
 model.QG = Var(model.buses, domain = Reals)
-model.V = Var(model.buses, initialize = 1.0, bounds=(0.92, 1.1)) # suitble for 300 bus system (0.92-1.1)
+model.V = Var(model.buses, initialize = 1.0, bounds=(0.94, 1.1))
 model.delta = Var(model.buses, initialize = 0, bounds=(-math.pi/4, math.pi/4))
 
 for i in range(row_bus):

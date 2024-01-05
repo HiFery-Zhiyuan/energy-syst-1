@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-This project is to test Pyomo-based optimaztion platform using IEEE 9-bus system
+This project is to test Pyomo-based optimaztion platform using IEEE testing systems
 Designed by Zhiyuan @ 10th, April, 2023
 updated by Zhiyuan @ 5th, Jan., 2024
 
-
-Using BMF formulation
 
 """
 
