@@ -4,10 +4,10 @@
 ## I. License Information
 
 The project scripts are based on:
-1. Python environment @ PSFL license <br>
-2. Pyomo platform @ BSD license <br>
-3. Pypower library @ BSD license <br>
-4. Ipopt library @ EPL license <br>
+1. Python environment is licensed under PSFL<br>
+2. Pyomo platform is licensed under BSD license <br>
+3. Pypower library is licensed under BSD license <br>
+4. Ipopt library is licensed under EPL license <br>
 <br>
 <br>
 
