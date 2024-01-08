@@ -3,11 +3,11 @@
 
 ## I. License Information
 
-The project scripts are based on:
+This project is licensed under BSD-3. The following projects/platforms are incorporated:
 1. Python environment is licensed under PSFL<br>
 2. Pyomo platform is licensed under BSD license <br>
 3. Pypower library is licensed under BSD license <br>
-4. Ipopt library is licensed under EPL license <br>
+4. Ipopt library is licensed under EPL <br>
 <br>
 <br>
 
