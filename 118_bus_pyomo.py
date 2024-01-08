@@ -92,7 +92,6 @@ model = ConcreteModel()
 # Define the sets
 
 model.buses = Set(initialize=bus[:,0].astype(int))
-
 model.lines = Set(initialize=line_list)
 model.cost_dims = Set(initialize=range(0,column_cost))
 
@@ -135,10 +134,10 @@ for i in range(row_bus):
 
 
 # 经济最优
-model.obj = Objective(expr = sum((model.PG[i]*baseMVA)**2*model.C[i,4]+ (model.PG[i]*baseMVA)*model.C[i,5]+model.C[i,6]+model.C[i,1] for i in model.buses), sense=minimize)
+# model.obj = Objective(expr = sum((model.PG[i]*baseMVA)**2*model.C[i,4]+ (model.PG[i]*baseMVA)*model.C[i,5]+model.C[i,6]+model.C[i,1] for i in model.buses), sense=minimize)
 
 # 网损最优
-
+model.obj = Objective(expr = (sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses))**2, sense=minimize)
 # Define the power balance constraints
 model.power_balance_constraints = ConstraintList()
 for i in model.buses:
@@ -163,9 +162,9 @@ for i in model.buses:
 
 
 # power supply-demand
-model.power_supply_demand_balance = ConstraintList()
+# model.power_supply_demand_balance = ConstraintList()
 
-model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.1015)
+# model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.1015)
 # model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) >= 0)
 # model.power_supply_demand_balance.add(expr = sum(model.QG[i] for i in model.buses) - sum(model.QD[i] for i in model.buses) == 0)
 
