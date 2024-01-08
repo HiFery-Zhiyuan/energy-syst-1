@@ -14,6 +14,10 @@ Important notes:
     
 Inputs: not-defined
 Outputs: not-defined
+
+type = 1 load bus
+     = 2 PV / Gen Bus
+     = 3 Slack Bus
     
 """
 
@@ -117,22 +121,20 @@ for i in range(len(bus_gen_mtrx)):
 model = ConcreteModel()
 
 # Define the sets
-
 model.buses = Set(initialize=bus[:,0].astype(int))
-
-model.lines = Set(initialize=line_list)
-model.cost_dims = Set(initialize=range(0,column_cost))
+# model.lines = Set(initialize=line_list) # not necessary
+model.cost_dims = Set(initialize=range(0,column_cost)) # used for economic operation study
 
 # Define the parameters (change the bus-> dict)
-model.PD = Param(model.buses, initialize = bus[:, 2]/baseMVA, default = 0.0) # default meaning?
-model.QD = Param(model.buses, initialize = bus[:, 3]/baseMVA, default = 0.0)
-model.PG_MAX = Param(model.buses, initialize = pg_max_list, default = 0.0)
-model.PG_MIN = Param(model.buses, initialize = pg_min_list, default = 0.0)
-model.QG_MAX = Param(model.buses, initialize = qg_max_list, default = 0.0)
-model.QG_MIN = Param(model.buses, initialize = qg_min_list, default = 0.0)
-model.V_MAX = Param(model.buses, initialize = bus[:, 11], default = 0.0)
-model.V_MIN = Param(model.buses, initialize = bus[:, 12], default = 0.0)
-model.Y = Param(model.buses*model.buses, initialize = d, default = 0.0)
+model.PD = Param(model.buses, initialize = bus[:, 2]/baseMVA)
+model.QD = Param(model.buses, initialize = bus[:, 3]/baseMVA)
+model.PG_MAX = Param(model.buses, initialize = pg_max_list)
+model.PG_MIN = Param(model.buses, initialize = pg_min_list)
+model.QG_MAX = Param(model.buses, initialize = qg_max_list)
+model.QG_MIN = Param(model.buses, initialize = qg_min_list)
+model.V_MAX = Param(model.buses, initialize = bus[:, 11])
+model.V_MIN = Param(model.buses, initialize = bus[:, 12])
+model.Y = Param(model.buses*model.buses, initialize = d, default = 0.0) # default meaning?
 # model.theta = Param(model.buses*model.buses, initialize = theta_dic, default=0.0)
 model.C = Param(model.buses*model.cost_dims, initialize = cost_dic, default = 0.0)
 
