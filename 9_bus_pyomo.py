@@ -138,6 +138,8 @@ model.Y = Param(model.buses*model.buses, initialize = d, default = 0.0) # defaul
 # model.theta = Param(model.buses*model.buses, initialize = theta_dic, default=0.0)
 model.C = Param(model.buses*model.cost_dims, initialize = cost_dic, default = 0.0)
 
+# add carbon constrain
+
 
 # print(model)
 

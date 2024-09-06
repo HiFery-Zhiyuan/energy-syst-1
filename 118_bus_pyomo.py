@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 This project is to test Pyomo-based optimaztion platform using IEEE testing systems
-Designed by Zhiyuan @ 10th, Apr., 2023
-updated by Zhiyuan @ 5th, Jan., 2024
+Developed by Zhiyuan @ 10th, Apr., 2023
+updated by Zhiyuan @ 5th, Sept., 2024
+
 
 
 """
@@ -14,7 +15,7 @@ from pyomo.opt import SolverFactory
 import math
 import cmath
 import numpy as np
-from pypower.api import case118, ppoption, runpf, loadcase
+from pypower.api import case118, case57, ppoption, runpf, loadcase
 from numpy import r_, c_, ix_, zeros, pi, ones, exp, argmax
 from pypower.makeYbus import makeYbus
 from pypower.ext2int import ext2int
@@ -27,6 +28,7 @@ from pyomo.util.infeasible import log_infeasible_constraints
 import logging
 
 # get the structured data from pypower
+ppc = loadcase(case57())
 ppc = loadcase(case118())
 ppc = ext2int(ppc)
 baseMVA, bus, gen, branch = ppc["baseMVA"], ppc["bus"], ppc["gen"], ppc["branch"]
@@ -115,7 +117,7 @@ model.C = Param(model.buses*model.cost_dims, initialize = cost_dic, default = 0.
 
 model.PG = Var(model.buses, domain = Reals)
 model.QG = Var(model.buses, domain = Reals)
-model.V = Var(model.buses, initialize = 1.0, bounds=(0.95, 1.05)) # suitble for 300 bus system (0.92-1.1)
+model.V = Var(model.buses, initialize = 1.0, bounds=(0.95, 1.08)) # suitble for 300 bus system (0.92-1.1)
 model.delta = Var(model.buses, initialize = 0, bounds=(-math.pi/4, math.pi/4))
 
 for i in range(row_bus):
@@ -162,9 +164,9 @@ for i in model.buses:
 
 
 # power supply-demand
-# model.power_supply_demand_balance = ConstraintList()
+model.power_supply_demand_balance = ConstraintList()
 
-# model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.1015)
+# model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) <= 0.12)
 # model.power_supply_demand_balance.add(expr = sum(model.PG[i] for i in model.buses) - sum(model.PD[i] for i in model.buses) >= 0)
 # model.power_supply_demand_balance.add(expr = sum(model.QG[i] for i in model.buses) - sum(model.QD[i] for i in model.buses) == 0)
 
