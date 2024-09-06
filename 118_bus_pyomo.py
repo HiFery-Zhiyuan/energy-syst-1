@@ -3,6 +3,7 @@
 This project is to test Pyomo-based optimaztion platform using IEEE testing systems
 Developed by Zhiyuan @ 10th, Apr., 2023
 updated by Zhiyuan @ 5th, Sept., 2024
+updated 57 bus system
 
 
 
