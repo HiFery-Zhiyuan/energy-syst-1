@@ -90,6 +90,10 @@ for i in range(len(bus_gen_mtrx)):
         cost_dic[key] = cost_value
 
 
+# get the branch list
+branch_list = ppc['branch']
+MVA_list = branch_list[:,5]
+
 # Define the model
 model = ConcreteModel()
 
@@ -137,6 +141,35 @@ for i in range(row_bus):
         model.QG[i].fix(0)
 
 
+# branch limits
+model.branch_limits = ConstraintList()
+for i in range(len(MVA_list)):
+    line_limit = (MVA_list[i]/baseMVA)**2
+    f_bus = branch_list[i][0]
+    t_bus = branch_list[i][1]
+    Z_f_t = -1 / model.Y[f_bus, t_bus]
+
+    R_f_t = Z_f_t.real
+    X_f_t = Z_f_t.imag
+
+    U_f_real = model.V[f_bus] * cos(model.delta[f_bus])
+    U_f_imag = model.V[f_bus] * sin(model.delta[f_bus])
+    U_t_real = model.V[t_bus] * cos(model.delta[t_bus])
+    U_t_imag = model.V[t_bus] * sin(model.delta[t_bus])
+
+    dif_U_real = U_f_real - U_t_real
+    dif_U_imag = U_f_imag - U_t_imag
+
+    I_f_t_real = (dif_U_real * R_f_t + X_f_t * dif_U_imag)/(R_f_t**2 + X_f_t**2)
+    I_f_t_imag = (dif_U_imag * R_f_t - X_f_t * dif_U_real)/(R_f_t**2 + X_f_t**2)
+
+    P_f_t = U_f_real * I_f_t_real - U_f_imag * I_f_t_imag
+    Q_f_t = U_f_imag * I_f_t_real + U_f_real * I_f_t_imag
+
+    S_f_t_2 = P_f_t**2+Q_f_t**2
+    model.branch_limits.add(expr = S_f_t_2 - line_limit <= 0 )
+    model.branch_limits.add(expr = S_f_t_2 + line_limit >= 0)
+
 # 经济最优
 # model.obj = Objective(expr = sum((model.PG[i]*baseMVA)**2*model.C[i,4]+ (model.PG[i]*baseMVA)*model.C[i,5]+model.C[i,6]+model.C[i,1] for i in model.buses), sense=minimize)
 
@@ -180,6 +213,9 @@ for i in model.buses:
         model.generator_limits.add(expr = model.PG[i] - model.PG_MAX[i] <= 0)
         model.generator_limits.add(expr = model.QG_MIN[i] - model.QG[i] <= 0)
         model.generator_limits.add(expr = model.QG[i] - model.QG_MAX[i] <= 0)
+
+
+
 
 
 solver = SolverFactory('ipopt', executable=path)
